@@ -1,0 +1,34 @@
+<div id="chat-container">
+    <%=render '/home/card_header'%>
+    <div class="card" style="width: 100%;">
+        
+        <div class="card-body">
+            
+            <div id="table-container">
+                <table>
+                     <thead>
+                        <tr>
+                          <th>Player</th>
+                          <th>Amount</th>
+                          <th>Predicted</th>
+                          <th>Profit</th>
+                          <!-- Add more table headers as needed -->
+                        </tr>
+                      </thead>
+                    <tbody id="table-body">
+                        <!-- Table rows will be added dynamically here -->
+                       <% @bets.each do |bet| %>
+                          <tr>
+                            <td><%= current_user.username %></td>        
+                            <td><%= bet.stake_amount %></td>
+                            <td><%= bet.predicted_y_value %></td>
+                            <td><%= bet.outcome %></td>
+                            <!-- Add more table cells for additional bet attributes -->
+                          </tr>
+                        <% end %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

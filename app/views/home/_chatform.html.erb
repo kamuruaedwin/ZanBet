@@ -1,0 +1,105 @@
+<head>
+  <style>
+    /* Add your styles for the card here */
+    .card {
+      border: 1px solid #ccc;
+      padding: 8px;
+      margin: 8px;
+    }
+
+    /* Add your styles for the buttons here */
+    .card-buttons {
+      display: flex;
+    }
+
+    .card-button {
+      margin-right: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="chat-container">
+    <div id="chatheader-container" >
+      <div class="card">
+        <div id="card-header">
+          <div class="card-buttons">
+            <div class="card-button" onclick="changeContent('button1')">Bets</div>
+            <div class="card-button" onclick="changeContent('button2')">Chats</div>
+            <div class="card-button" onclick="changeContent('button3')">Button 3</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="messages-container" class="card" style="width: 100%;">
+      <!-- <div class="card-body"> -->
+        <!-- Loop through and display your messages here -->
+        <% @messages.each do |message| %>
+          <div class="message">
+            <span class="username">@<%= message.user.username %>:</span>
+            <span class="content"><%= message.content %></span>
+            <span class="timestamp"><%= message.created_at.strftime('%I:%M %p') %></span>
+          </div>
+        <% end %>
+</div>
+        <% if user_signed_in? %>
+          <%= form_with model: @message, url: messages_path, method: :post, remote: true do |form| %>
+            <div id="chatfooter-container">
+              <div class="form-group row">
+                <div class="col-sm-9" style="height: 100%;">
+                  <%= form.text_field :content, placeholder: "Write your message here", rows: 1, required: true, class: "form-control" %>
+                </div>
+                <div class="col-sm-3">
+                  <%= form.submit "Post", class: "btn btn-primary touch-button" %>
+                </div>
+              </div>
+              
+            </div>
+          <% end %>
+        <% else %>
+          <div id="chatfooter-container">
+            <p>Login to post</p>
+          </div>                    
+
+          <% if @message.errors.any? %>
+            <div>
+              <h2><%= pluralize(@message.errors.count, "error") %> prohibited this message from being saved:</h2>
+              <ul>
+                <% @message.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    
+
+    <script type="text/javascript">
+      function changeContent(buttonId) {
+        // Clear existing content in #cardBody
+        $('#cardBody').empty();
+
+        // Check which button is clicked
+        if (buttonId === 'button1') {
+          // Load the content of the table into the card body
+          var tableContent = $('#bettable-container').html();
+          $('#cardBody').html(tableContent);
+        } else if (buttonId === 'button2') {
+          // Update the card body with content for Button 2
+          var messagesContent = $('#messages-container').html();
+          $('#cardBody').html(messagesContent);
+        }
+      }
+
+      // Set the default content to be the content of Button 1
+      $(document).ready(function () {
+        changeContent('button1');
+      });
+    </script>
+
+    <script src="<%= asset_path 'messages.js' %>"></script>
+ 
+</body>
+</html>

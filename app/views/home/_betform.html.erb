@@ -1,0 +1,48 @@
+<% if user_signed_in? %>
+  <div id="bet-container" data-betid="<%= @bet.betid %>">
+    <div class="card" style="width: 100% ">
+      <div class="card-header">
+        <h5>Place Bet</h5>
+      </div>
+      <div class="card-body">
+        <%= form_with(model: @bet, url: bets_path, method: :post, remote: true, id: 'bet-form') do |form| %>
+          <!-- Form fields and submit button as before -->
+          <%= form.hidden_field :user_id, value: current_user.id %>
+          <%= form.hidden_field :betid, id: 'betid', value: @bet.betid, style: 'display: none;' %>
+          <div class="form-group">
+            <label for="stake_amount">Amount To Bet</label>
+            <%= form.number_field :stake_amount, class: 'form-control', id: 'stake_amount', placeholder: 'Enter stake amount' %>
+          </div>
+          <div class="form-group">
+            <label for="predicted_y_value">Your Prediction</label>
+            <%= form.number_field :predicted_y_value, class: 'form-control', id: 'predicted_y_value', placeholder: 'Enter your prediction' %>
+          </div>
+          <div class="actions">
+            <div id="placeBetButton" >
+              <%= form.submit 'Place Bet', class:"touch-button" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <div id="bet-container">
+    <div class="card" style="width: 100%">
+      <div class="card-header">
+        <p class="card-title">Register/Login To Play</p>
+      </div>
+      <div class="card-body">
+        <button type="button" class="touch-button" data-toggle="modal" data-target="#signupModal">
+          Register
+        </button>
+        <br>
+        <br>
+        <button type="button" class="touch-button" data-toggle="modal" data-target="#loginModal">
+          Log In
+        </button>
+      </div>
+    </div>
+  </div>
+<% end %>
+ </div>

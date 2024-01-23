@@ -1,0 +1,28 @@
+<%= flash[:success] %>
+<%= flash[:error] %>
+<body>
+  <div id="container">
+    <!-- Your main view -->
+<img src="<%= generate_animation_path %>" alt="Animation">
+    <%= render 'home/chatform'%>
+    <%= render 'tables/chart'%>
+    <%= render 'home/betform'%>
+    
+    <%= render 'tables/burst_table'%>
+    <%= render 'tables/your_bets'%>
+
+</div>
+
+<%= javascript_include_tag 'animation_script' %>
+
+  <!-- Include Bootstrap JS (optional) -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
+      <div id="container">
+        <footer>
+          <p> 
+          <a href="#">ZanBet BCLB no 88888 Copyright © 2023 All Rights Reserved</a></p>
+        </footer>
+      </div>
+    </div>
+</body>

@@ -1,0 +1,23 @@
+{
+  "name": "auth",
+  "version": "1.0.0",
+  "description": "This README would normally document whatever steps are necessary to get the application up and running.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@hotwired/turbo-rails": "^7.3.0",
+    "canvas": "^2.11.2",
+    "chart.js": "^4.4.0",
+    "express": "^4.18.2",
+    "stimulus": "^3.2.2"
+  }
+}

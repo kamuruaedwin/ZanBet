@@ -1,0 +1,31 @@
+Fixes Required
+
+Critical level
+Mobile ux friendliness
+place bet button resetting the page
+animation pausing on inactive
+random stop function not calling in background
+associating betid to animation
+password resetting
+
+
+Create Social media Handles
+Design social media posters
+random stop is the period expiration not entirely random
+
+
+Security OWASP Top 10 research
+
+
+Medium level
+
+
+
+
+28th November 23
+Register Domains
+Deploy on AWS/Heroku/GCP
+
+
+28th Jan 24 
+Production FullMode 

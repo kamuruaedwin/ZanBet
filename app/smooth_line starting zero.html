@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Smooth Line Animation</title>
+  <style>
+    canvas {
+      border: 1px solid #000;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="dynamic-smooth-line" width="400" height="300"></canvas>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const canvas = document.getElementById('dynamic-smooth-line');
+      const context = canvas.getContext('2d');
+
+      // Function to draw the dynamic smooth line graph with labels
+      const drawDynamicSmoothLine = (x, y, xAxisScale, yAxisScale) => {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw x-axis
+        context.beginPath();
+        context.moveTo(50, canvas.height - 50);
+        context.lineTo(canvas.width - 50, canvas.height - 50);
+        context.stroke();
+
+        // Draw y-axis
+        context.beginPath();
+        context.moveTo(50, canvas.height - 50);
+        context.lineTo(50, 50);
+        context.stroke();
+
+        // Draw x-axis labels
+        for (let i = 0; i <= 10; i++) {
+          const xPos = 50 + (canvas.width - 100) * (i / 10);
+          context.beginPath();
+          context.moveTo(xPos, canvas.height - 45);
+          context.lineTo(xPos, canvas.height - 55);
+          context.stroke();
+          context.fillText((xAxisScale * i).toFixed(1), xPos - 10, canvas.height - 30);
+        }
+
+        // Draw y-axis labels
+        for (let i = 0; i <= 10; i++) {
+          const yPos = canvas.height - 50 - (canvas.height - 100) * (i / 10);
+          context.beginPath();
+          context.moveTo(45, yPos);
+          context.lineTo(55, yPos);
+          context.stroke();
+          context.fillText((yAxisScale * i).toFixed(1), 20, yPos + 5);
+        }
+
+        // Draw the line
+        context.beginPath();
+        context.moveTo(50, canvas.height - 50);
+        context.lineTo(x, y);
+        context.stroke();
+      };
+
+      // Function to animate the dynamic smooth line graph
+      const animateDynamicSmoothLine = () => {
+        let x = 50; // Starting x-coordinate
+        let y = canvas.height - 50; // Starting y-coordinate
+        let xAxisScale = 1; // Starting x-axis scale
+        let yAxisScale = 1; // Starting y-axis scale
+
+        // Animation loop
+        const animation = () => {
+          x += 2; // Increment x-coordinate
+          y = canvas.height - 50 - (x - 50) * 0.5; // Linear function for a steadily rising line
+          xAxisScale = (x - 50) / 100; // Dynamic x-axis scale
+          yAxisScale = 1 + (canvas.height - y - 50) / 100; // Dynamic y-axis scale
+
+          drawDynamicSmoothLine(x, y, xAxisScale, yAxisScale); // Draw the dynamic smooth line graph
+
+          // Randomly stop the animation before reaching a set value of y
+          if (Math.random() < 0.005 && y < 200) {
+            return;
+          }
+
+          requestAnimationFrame(animation); // Continue the animation
+        };
+
+        animation(); // Start the animation
+      };
+
+      animateDynamicSmoothLine(); // Start the dynamic smooth line graph animation
+    });
+  </script>
+</body>
+</html>

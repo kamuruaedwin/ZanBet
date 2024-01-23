@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Smooth Line Chart</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    canvas {
+      border: 1px solid #000;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="dynamic-smooth-line-chart" width="800" height="400"></canvas>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const canvas = document.getElementById('dynamic-smooth-line-chart');
+      const context = canvas.getContext('2d');
+
+      // Function to draw the dynamic smooth line graph using Chart.js
+      const drawDynamicSmoothLineChart = (x, y, chart) => {
+        chart.data.labels.push(x);
+        chart.data.datasets[0].data.push(y);
+        chart.update();
+      };
+
+      // Function to animate the dynamic smooth line graph using Chart.js
+      const animateDynamicSmoothLineChart = () => {
+        const chart = new Chart(context, {
+          type: 'line',
+          data: {
+            labels: [],
+            datasets: [{
+              label: 'Dynamic Smooth Line',
+              data: [],
+              borderColor: 'blue',
+              borderWidth: 2,
+              fill: false,
+            }],
+          },
+          options: {
+            scales: {
+              x: {
+                type: 'linear',
+                position: 'bottom',
+              },
+              y: {
+                type: 'linear',
+                position: 'left',
+                beginAtZero: true,
+              },
+            },
+          },
+        });
+
+        let x = 0;
+        let y = canvas.height;
+
+        // Animation loop
+        const animation = () => {
+          x += 2;
+          y = canvas.height - (x - 50) * 0.5;
+
+          drawDynamicSmoothLineChart(x, y, chart);
+
+          if (x < canvas.width - 50) {
+            requestAnimationFrame(animation);
+          }
+        };
+
+        animation();
+      };
+
+      animateDynamicSmoothLineChart();
+    });
+  </script>
+</body>
+</html>

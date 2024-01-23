@@ -1,0 +1,20 @@
+<%= line_chart([], id: 'real-time-chart', max: 28, curve: false) %>
+
+<script>
+  function updateChart() {
+    $.get('/charts/chart_data', function (data) {
+      window.chart.addData([[data.time, data.value]]);
+      if (data.value < 28) {
+        setTimeout(updateChart, 1000); // Update every second until the random value is 28
+      }
+    });
+  }
+
+  $(document).ready(function () {
+    // Load initial data
+    $.get('/charts/chart_data', function (data) {
+      window.chart = new Chartkick.LineChart('real-time-chart', { 'Random Data': [[0, 1]] });
+      updateChart();
+    });
+  });
+</script>

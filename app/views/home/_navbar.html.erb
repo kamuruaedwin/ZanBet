@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>ZanBet</title>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-logo">
+            <a class="navbar-brand" href="#"><strong>PesaFast</strong><br>Play Win Play</a>
+        </div>
+        
+        <%=current_user.username%>
+        balance <%=current_user.balance%>
+        bets <%= User.count_users_with_bets%>
+        Active Users: <%= User.logged_in_count %>          
+        <div class="navbar-links">
+            <% if user_signed_in? %>            
+            <a class="nav-link flex-grow-1" href="<%= deposits_new_path %>" data-turbo-frame="modal">Deposit</a>
+            <a class="nav-link flex-grow-1" href="<%= withdraws_new_path %>">Withdraw</a>
+             <%= button_to "Log out", logout_path, method: :delete, class: "nav-link flex-grow-1" %>
+
+            <%end%>         
+         
+        </div>
+    </nav>
+</body>
+</html>
+
+bettabla<div class="card" style="width: 100%;">
+      <div class="card-body">
+        <table>
+          <thead>
+            <tr>
+              <th>Player</th>
+              <th>Amount</th>
+              <th>Predicted</th>
+              <th>Profit</th>
+              <!-- Add more table headers as needed -->
+            </tr>
+          </thead>
+          <tbody id="bettable-body">
+            <!-- Table rows will be added dynamically here -->
+            <% @bets.each do |bet| %>
+              <tr>
+                <td><%= bet.user.username %></td>        
+                <td><%= bet.stake_amount %></td>
+                <td><%= bet.predicted_y_value %></td>
+                <td><%= bet.outcome %></td>
+                <!-- Add more table cells for additional bet attributes -->
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
